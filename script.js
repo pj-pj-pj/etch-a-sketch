@@ -1,25 +1,14 @@
 const gridSize = 16;
+const grid = document.querySelector('#grid');
+const buttonChangeSize = document.querySelector('#change-grid-size')
 
 createGrid(gridSize);
-startEtch();
 
-
-function startEtch() {
-  const gridItems = document.querySelectorAll('.grid-item');
-
-  gridItems.forEach(item => {
-  item.addEventListener('mouseover', etchColor);
-  })
-}
-
-function etchColor(e) {
-  e.target.style.backgroundColor = 'white';
-}
+grid.addEventListener('mouseover', etchColor)
+buttonChangeSize.addEventListener('click', changeGridSize);
 
 
 function createGrid(size) {
-  const grid = document.querySelector('#grid');
-
   for (let i = 0; i < size; i++) {
     const row = document.createElement('div');
     row.className = 'grid-row';
@@ -33,3 +22,26 @@ function createGrid(size) {
 }
 
 
+function etchColor(e) {
+  if (e.target.className == 'grid-item') {
+    e.target.style.backgroundColor = 'white';
+  }
+}
+
+
+function changeGridSize() {
+  clearGrid();
+
+  number = prompt("Enter a number (2-100)");
+
+  if (number >= 2 && number <= 100) {
+    createGrid(number);
+  } else {
+    createGrid(gridSize)
+  }
+}
+
+
+function clearGrid() {
+  grid.innerHTML = ' ';
+}
